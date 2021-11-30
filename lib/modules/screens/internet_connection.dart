@@ -6,10 +6,8 @@ class InternetConnectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('No Internet Connection'),
-      ),
+     return const Center(
+      child: Text('No Internet Connection'),
     );
   }
 }

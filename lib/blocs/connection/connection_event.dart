@@ -5,7 +5,7 @@ abstract class ConnectionEvent {}
 
 class ListenConnection extends ConnectionEvent {}
 
-class ChangeConnection extends ConnectionEvent {
-  final InternetConnectionState connection;
-  ChangeConnection(this.connection);
+class ConnectionChanged extends ConnectionEvent {
+  final ConnectivityResult connection;
+  ConnectionChanged(this.connection);
 }
