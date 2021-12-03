@@ -1,16 +1,16 @@
 part of 'routes_bloc.dart';
 
 class RoutesState extends Equatable {
-  final Widget screen;
-  const RoutesState({required this.screen});
+  final NavigationItem selectedItem;
+  const RoutesState({required this.selectedItem});
 
-  factory RoutesState.change({required screen}) {
-    return RoutesState(screen: screen);
+  factory RoutesState.change({required selectedItem}) {
+    return RoutesState(selectedItem: selectedItem);
   }
 
   @override
-  String toString() => "RoutesState(screen: $screen)";
+  String toString() => "RoutesState(selectedItem: $selectedItem)";
 
   @override
-  List<Object> get props => [screen];
+  List<Object> get props => [selectedItem];
 }

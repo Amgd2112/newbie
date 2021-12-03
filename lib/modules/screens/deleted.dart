@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RoadmapScreen extends StatelessWidget {
-  const RoadmapScreen({Key? key}) : super(key: key);
+class DeletedScreen extends StatelessWidget {
+  const DeletedScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

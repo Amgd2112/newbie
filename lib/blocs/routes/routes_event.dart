@@ -8,7 +8,7 @@ abstract class RoutesEvent extends Equatable {
 }
 
 class DestinationChanged extends RoutesEvent {
-  final String destination;
+  final NavigationName destination;
   const DestinationChanged({required this.destination});
 
   @override

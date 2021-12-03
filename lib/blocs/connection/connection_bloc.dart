@@ -25,9 +25,13 @@ class ConnectionBloc extends Bloc<ConnectionEvent, InternetConnectionState> {
     });
   }
 
-  void _onListenConnection(ConnectionEvent event, Emitter<InternetConnectionState> emit) {
+  void _onListenConnection(
+    ConnectionEvent event,
+    Emitter<InternetConnectionState> emit,
+  ) {
     _connectivitySubscription?.cancel();
-    _connectivitySubscription = Connectivity().onConnectivityChanged.listen((result) {
+    _connectivitySubscription =
+        Connectivity().onConnectivityChanged.listen((result) {
       add(ConnectionChanged(result));
     });
   }
@@ -36,7 +40,9 @@ class ConnectionBloc extends Bloc<ConnectionEvent, InternetConnectionState> {
     bool hasConnection = false;
 
     try {
-      final result = await InternetAddress.lookup(ConstantURL.google).timeout(_timeOutDuration);
+      final result = await InternetAddress.lookup(
+        ConstantURL.google,
+      ).timeout(_timeOutDuration);
       if (result.isNotEmpty && result.first.rawAddress.isNotEmpty) {
         hasConnection = true;
       }
@@ -48,7 +54,10 @@ class ConnectionBloc extends Bloc<ConnectionEvent, InternetConnectionState> {
     return hasConnection;
   }
 
-  Future<void> _onChangeConnection(ConnectionChanged event, Emitter<InternetConnectionState> emit) async {
+  Future<void> _onChangeConnection(
+    ConnectionChanged event,
+    Emitter<InternetConnectionState> emit,
+  ) async {
     bool hasConnection = false;
     if (event.connection != ConnectivityResult.none) {
       hasConnection = await _checkConnection();
