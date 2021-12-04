@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../blocs/routes/navigation_bloc.dart';
 import '../../config/routes/router.dart';
-import '../components/app_bar.dart';
-import '../components/drawer.dart';
-import '../components/floating_action_button.dart';
-import '../../blocs/routes/routes_bloc.dart';
+import '../modules.dart';
 
 class WrapperScreen extends StatelessWidget {
   const WrapperScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RoutesBloc, RoutesState>(
+    return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
         return Scaffold(
           appBar: mapAppBar(navigationItem: state.selectedItem),
-          drawer: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 250),
-            transitionBuilder: (child, animation) {
-              return ScaleTransition(
-                scale: animation,
-                child: child,
-              );
-            },
-            child: NewbieDrawer(navigationItem: state.selectedItem),
-          ),
-          body: NewbieRouter.mapScreen(state.selectedItem.name),
+          drawer: NewbieDrawer(navigationItem: state.selectedItem),
+          body: NewbieRouter.mapScreen(state.selectedItem.destination),
           floatingActionButton: AnimatedSwitcher(
             duration: const Duration(milliseconds: 250),
             transitionBuilder: (child, animation) {
@@ -34,13 +24,22 @@ class WrapperScreen extends StatelessWidget {
                 child: child,
               );
             },
-            child: mapFloatingActionButton(
-              context: context,
-              navigationName: state.selectedItem.name,
-            ),
+            child: mapFloatingActionButton(state.selectedItem.destination),
           ),
         );
       },
     );
+  }
+
+  Widget? mapFloatingActionButton(NavigationDestination destination) {
+    if (destination == NavigationDestination.feed) {
+      return const FeedFloatingActionButton();
+    }
+
+    if (destination == NavigationDestination.notes) {
+      return const NotesFloatingActionButton();
+    }
+
+    return null;
   }
 }

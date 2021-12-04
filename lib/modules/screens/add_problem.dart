@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddProblemScreen extends StatelessWidget {
   const AddProblemScreen({Key? key}) : super(key: key);
@@ -8,36 +9,21 @@ class AddProblemScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Problem'),
-        elevation: 0,
       ),
       body: Column(
-        children: [
-          Container(
-            height: 200,
-            color: Colors.blue,
-          ),
-          Container(
-            height: 200,
-            color: Colors.green,
-          ),
-          Container(
-            height: 200,
-            color: Colors.red,
-          ),
-          Expanded(
-            child: Container(color: Colors.purple),
-          ),
-        ],
+        children: const [],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      floatingActionButton: const FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         heroTag: 'add-problem-tag',
         tooltip: 'Add',
         elevation: 0.0,
         mini: true,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         backgroundColor: Colors.white,
-        onPressed: null,
+        onPressed: () {
+          Fluttertoast.showToast(msg: 'Added');
+        },
       ),
     );
   }

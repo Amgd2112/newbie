@@ -7,6 +7,9 @@ class SlidePageRoute extends PageRouteBuilder {
       : super(pageBuilder: (context, animation, secondaryAnimation) => screen);
 
   @override
+  Duration get reverseTransitionDuration => const Duration(milliseconds: 50);
+
+  @override
   RouteTransitionsBuilder get transitionsBuilder {
     return (context, animation, secondaryAnimation, child) {
       final Tween<Offset> tween = Tween<Offset>(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/navigation_item.dart';
 
 AppBar mapAppBar({required NavigationItem navigationItem}) {

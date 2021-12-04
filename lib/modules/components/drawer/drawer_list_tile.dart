@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../models/navigation_item.dart';
+
+import '../../models/navigation_item.dart';
 
 class DrawerListTile extends StatelessWidget {
   final NavigationItem navigationItem;
@@ -24,7 +24,7 @@ class DrawerListTile extends StatelessWidget {
         dense: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         selected: selected,
-        selectedTileColor: Colors.deepPurple.withOpacity(0.1),
+        selectedTileColor: Theme.of(context).primaryColor.withOpacity(0.1),
       ),
     );
   }

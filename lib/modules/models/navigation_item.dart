@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'enum_navigation_name.dart';
+
+import 'enums/navigation_destination.dart';
 
 class NavigationItem {
-  final bool header;
-  final NavigationName name;
+  final NavigationDestination destination;
   final String title;
   final IconData icon;
-  NavigationItem({
-    required this.header,
-    required this.name,
+
+  const NavigationItem({
+    required this.destination,
     required this.title,
     required this.icon,
   });

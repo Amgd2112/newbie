@@ -1,42 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../utils/interface/animations/enter_exit_page_route.dart';
-import '../../utils/interface/animations/fade_page_route.dart';
-import '../../utils/interface/animations/slide_page_route.dart';
 
-import '../../../blocs/routes/routes_bloc.dart';
-import '../../utils/interface/animations/bouncy_page_route.dart';
-import '../../modules/models/enum_navigation_name.dart';
-import '../../modules/models/navigation_item.dart';
-import 'routes_config.dart';
+import '../../blocs/routes/navigation_bloc.dart';
+import '../../modules/modules.dart';
+import '../../utils/interface/animations/animations.dart';
 
 class NewbieRouter {
-  static NavigationItem mapNavigationItem(NavigationName name) {
-    return RouteNavigator.mapNavigationItem(name);
-  }
-
-  static Widget mapScreen(NavigationName name) {
-    return RouteNavigator.mapRoute(name);
+  static Widget mapScreen(NavigationDestination destination) {
+    switch (destination) {
+      case NavigationDestination.feed:
+        return const FeedScreen();
+      case NavigationDestination.statistics:
+        return const StatisticsScreen();
+      case NavigationDestination.notes:
+        return const NotesScreen();
+      case NavigationDestination.roadmap:
+        return const RoadmapScreen();
+      case NavigationDestination.deleted:
+        return const DeletedScreen();
+      case NavigationDestination.settings:
+        return const SettingsScreen();
+      case NavigationDestination.addProblem:
+        return const AddProblemScreen();
+      case NavigationDestination.theme:
+        return const ThemeScreen();
+      case NavigationDestination.languages:
+        return const LanguagesScreen();
+      case NavigationDestination.notifications:
+        return const NotificationsScreen();
+      case NavigationDestination.privacy:
+        return const PrivacyScreen();
+    }
   }
 
   static void replacePage({
     required BuildContext context,
-    required NavigationName name,
+    required NavigationDestination destination,
   }) {
     Navigator.pop(context);
-    context.read<RoutesBloc>().add(DestinationChanged(destination: name));
-    // BlocProvider.of<RoutesBloc>(context)
-    //     .add(DestinationChanged(destination: name));
+    context
+        .read<NavigationBloc>()
+        .add(DestinationChanged(destination: destination));
   }
 
   static Future pushPage({
     required BuildContext context,
-    required NavigationName name,
+    required NavigationDestination destination,
   }) {
     var val = Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => mapScreen(name),
+        builder: (BuildContext context) => mapScreen(destination),
       ),
     );
 
@@ -45,11 +59,11 @@ class NewbieRouter {
 
   static Future pushBouncyPage({
     required BuildContext context,
-    required NavigationName name,
+    required NavigationDestination destination,
   }) {
     var val = Navigator.push(
       context,
-      BouncyPageRoute(screen: mapScreen(name)),
+      BouncyPageRoute(screen: mapScreen(destination)),
     );
 
     return val;
@@ -57,13 +71,13 @@ class NewbieRouter {
 
   static Future pushSlidePage({
     required BuildContext context,
-    required NavigationName name,
+    required NavigationDestination destination,
     required AxisDirection direction,
   }) {
     var val = Navigator.push(
       context,
       SlidePageRoute(
-        screen: mapScreen(name),
+        screen: mapScreen(destination),
         direction: direction,
       ),
     );
@@ -73,11 +87,11 @@ class NewbieRouter {
 
   static Future pushFadePage({
     required BuildContext context,
-    required NavigationName name,
+    required NavigationDestination destination,
   }) {
     var val = Navigator.push(
       context,
-      FadePageRoute(screen: mapScreen(name)),
+      FadePageRoute(screen: mapScreen(destination)),
     );
 
     return val;
@@ -85,8 +99,8 @@ class NewbieRouter {
 
   static Future pushEnterExitPage({
     required BuildContext context,
-    required NavigationName source,
-    required NavigationName destination,
+    required NavigationDestination source,
+    required NavigationDestination destination,
     required AxisDirection direction,
   }) {
     var val = Navigator.push(
