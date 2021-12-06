@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AddProblemScreen extends StatelessWidget {
@@ -8,19 +9,13 @@ class AddProblemScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Problem'),
-      ),
-      body: Column(
-        children: const [],
+        title: Text(AppLocalizations.of(context)!.homeNewProblemTitle),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: FloatingActionButton(
         heroTag: 'add-problem-tag',
-        tooltip: 'Add',
-        elevation: 0.0,
         mini: true,
         child: const Icon(Icons.add),
-        backgroundColor: Colors.white,
         onPressed: () {
           Fluttertoast.showToast(msg: 'Added');
         },

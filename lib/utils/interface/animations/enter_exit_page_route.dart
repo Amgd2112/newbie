@@ -28,13 +28,13 @@ class EnterExitPageRoute extends PageRouteBuilder {
           SlideTransition(
             position: Tween<Offset>(
               begin: const Offset(0.0, 0.0),
-              end: mapOffset(direction),
+              end: offsetMap[offsetMapReverse[direction]],
             ).animate(animation),
             child: exitPage,
           ),
           SlideTransition(
             position: Tween<Offset>(
-              begin: mapReverseOffset(direction),
+              begin: offsetMap[direction],
               end: Offset.zero,
             ).animate(animation),
             child: enterPage,
@@ -44,29 +44,17 @@ class EnterExitPageRoute extends PageRouteBuilder {
     };
   }
 
-  Offset mapOffset(AxisDirection direction) {
-    switch (direction) {
-      case AxisDirection.up:
-        return const Offset(0.0, 1.0);
-      case AxisDirection.right:
-        return const Offset(-1.0, 0.0);
-      case AxisDirection.down:
-        return const Offset(0.0, -1.0);
-      case AxisDirection.left:
-        return const Offset(1.0, 0.0);
-    }
-  }
+  static const Map<AxisDirection, Offset> offsetMap = {
+    AxisDirection.up: Offset(0.0, 1.0),
+    AxisDirection.right: Offset(-1.0, 0.0),
+    AxisDirection.down: Offset(0.0, -1.0),
+    AxisDirection.left: Offset(1.0, 0.0),
+  };
 
-  Offset mapReverseOffset(AxisDirection direction) {
-    switch (direction) {
-      case AxisDirection.down:
-        return const Offset(0.0, 1.0);
-      case AxisDirection.left:
-        return const Offset(-1.0, 0.0);
-      case AxisDirection.up:
-        return const Offset(0.0, -1.0);
-      case AxisDirection.right:
-        return const Offset(1.0, 0.0);
-    }
-  }
+  static const Map<AxisDirection, AxisDirection> offsetMapReverse = {
+    AxisDirection.up: AxisDirection.down,
+    AxisDirection.right: AxisDirection.left,
+    AxisDirection.down: AxisDirection.up,
+    AxisDirection.left: AxisDirection.right,
+  };
 }

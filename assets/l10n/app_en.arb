@@ -1,0 +1,31 @@
+{
+  "@@locale": "en",  
+  "homeTitle": "Home",
+  "homeNewProblemTitle": "New Problem",
+
+  "statisticsTitle": "Statistics",
+
+  "notesTitle": "Newbie Big Notes",
+
+  "roadmapTitle": "Roadmap",
+
+  "deletedTitle": "Deleted",
+
+
+  "settingsTitle": "Settings",
+
+  "settingsThemeTitle": "Theme",
+  "settingsThemeDescription": "Select your default theme setting.",
+  "settingsThemeDarkTitle": "Dark Mode",
+  "settingsThemeLightTitle": "Light Mode",
+  "settingsThemeSystemTitle": "System Mode",
+
+  "settingsLanguagesTitle": "Languages",
+  "settingsLanguagesDescription": "Select your app default language.",
+  "settingsLanguagesEnglishTitle": "English",
+  "settingsLanguagesArabicTitle": "Arabic",
+
+  "settingsNotificationsTitle": "Notifications",
+
+  "settingsPrivacyTitle": "Privacy"
+}

@@ -5,7 +5,7 @@ class ThemeState extends Equatable {
   const ThemeState({required this.mode});
 
   factory ThemeState.change({required int key}) {
-    return ThemeState(mode: ThemeConfig.getThemeItem(key).mode);
+    return ThemeState(mode: ThemeConfig.getTheme(key));
   }
 
   @override

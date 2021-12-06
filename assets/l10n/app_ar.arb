@@ -1,0 +1,31 @@
+{
+  "@@locale": "ar",  
+  "homeTitle": "الصفحة الرئيسية",
+  "homeNewProblemTitle": "إضافة مشكلة جديدة",
+
+  "statisticsTitle": "إحصائيات",
+
+  "notesTitle": "ملاحظات مهمة",
+
+  "roadmapTitle": "خارطة الطريق",
+
+  "deletedTitle": "المحذوفات",
+
+
+  "settingsTitle": "الإعدادات",
+
+  "settingsThemeTitle": "المظهر",
+  "settingsThemeDescription": "حدد إعداد المظهر الاساسيه الخاص بك.",
+  "settingsThemeDarkTitle": "وضع الليل",
+  "settingsThemeLightTitle": "وضع النهار",
+  "settingsThemeSystemTitle": "وضع النظام",
+
+  "settingsLanguagesTitle": "اللغات",
+  "settingsLanguagesDescription": "حدد اللغة الافتراضية للتطبيق الخاص بك.",
+  "settingsLanguagesEnglishTitle": "الإنجليزية",
+  "settingsLanguagesArabicTitle": "العربية",
+
+  "settingsNotificationsTitle": "الاشعارات",
+
+  "settingsPrivacyTitle": "الخصوصية"
+}

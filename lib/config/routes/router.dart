@@ -5,100 +5,50 @@ import '../../blocs/routes/navigation_bloc.dart';
 import '../../modules/modules.dart';
 import '../../utils/interface/animations/animations.dart';
 
-class NewbieRouter {
-  static Widget mapScreen(NavigationDestination destination) {
-    switch (destination) {
-      case NavigationDestination.feed:
-        return const FeedScreen();
-      case NavigationDestination.statistics:
-        return const StatisticsScreen();
-      case NavigationDestination.notes:
-        return const NotesScreen();
-      case NavigationDestination.roadmap:
-        return const RoadmapScreen();
-      case NavigationDestination.deleted:
-        return const DeletedScreen();
-      case NavigationDestination.settings:
-        return const SettingsScreen();
-      case NavigationDestination.addProblem:
-        return const AddProblemScreen();
-      case NavigationDestination.theme:
-        return const ThemeScreen();
-      case NavigationDestination.languages:
-        return const LanguagesScreen();
-      case NavigationDestination.notifications:
-        return const NotificationsScreen();
-      case NavigationDestination.privacy:
-        return const PrivacyScreen();
-    }
-  }
-
-  static void replacePage({
-    required BuildContext context,
-    required NavigationDestination destination,
-  }) {
+abstract class NewbieRouter {
+  static void replacePage(BuildContext context, NavigationDestination destination) {
     Navigator.pop(context);
-    context
-        .read<NavigationBloc>()
-        .add(DestinationChanged(destination: destination));
+    context.read<NavigationBloc>().add(DestinationChanged(destination: destination));
   }
 
-  static Future pushPage({
-    required BuildContext context,
-    required NavigationDestination destination,
-  }) {
+  static Future<dynamic> pushPage(BuildContext context, NavigationDestination destination) {
     var val = Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (BuildContext context) => mapScreen(destination),
-      ),
+      MaterialPageRoute(builder: (BuildContext context) => lookupScreen(destination)),
     );
-
     return val;
   }
 
-  static Future pushBouncyPage({
-    required BuildContext context,
-    required NavigationDestination destination,
-  }) {
+  static Future<dynamic> pushBouncyPage(BuildContext context, NavigationDestination destination) {
     var val = Navigator.push(
       context,
-      BouncyPageRoute(screen: mapScreen(destination)),
+      BouncyPageRoute(screen: lookupScreen(destination)),
     );
-
     return val;
   }
 
-  static Future pushSlidePage({
-    required BuildContext context,
-    required NavigationDestination destination,
-    required AxisDirection direction,
-  }) {
+  static Future<dynamic> pushSlidePage(
+      BuildContext context, NavigationDestination destination, AxisDirection direction) {
     var val = Navigator.push(
       context,
       SlidePageRoute(
-        screen: mapScreen(destination),
+        screen: lookupScreen(destination),
         direction: direction,
       ),
     );
-
     return val;
   }
 
-  static Future pushFadePage({
-    required BuildContext context,
-    required NavigationDestination destination,
-  }) {
+  static Future<dynamic> pushFadePage(BuildContext context, NavigationDestination destination) {
     var val = Navigator.push(
       context,
-      FadePageRoute(screen: mapScreen(destination)),
+      FadePageRoute(screen: lookupScreen(destination)),
     );
-
     return val;
   }
 
-  static Future pushEnterExitPage({
-    required BuildContext context,
+  static Future<dynamic> pushEnterExitPage(
+    BuildContext context, {
     required NavigationDestination source,
     required NavigationDestination destination,
     required AxisDirection direction,
@@ -106,26 +56,38 @@ class NewbieRouter {
     var val = Navigator.push(
       context,
       EnterExitPageRoute(
-        enterPage: mapScreen(source),
-        exitPage: mapScreen(destination),
+        enterPage: lookupScreen(source),
+        exitPage: lookupScreen(destination),
         direction: direction,
       ),
     );
-
     return val;
   }
+}
 
-  static Future pushPageDialog(BuildContext context, Widget dialog) {
-    var val = Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return dialog;
-        },
-        fullscreenDialog: true,
-      ),
-    );
-
-    return val;
+Widget lookupScreen(NavigationDestination destination) {
+  switch (destination) {
+    case NavigationDestination.home:
+      return const HomeScreen();
+    case NavigationDestination.statistics:
+      return const StatisticsScreen();
+    case NavigationDestination.notes:
+      return const NotesScreen();
+    case NavigationDestination.roadmap:
+      return const RoadmapScreen();
+    case NavigationDestination.deleted:
+      return const DeletedScreen();
+    case NavigationDestination.settings:
+      return const SettingsScreen();
+    case NavigationDestination.addProblem:
+      return const AddProblemScreen();
+    case NavigationDestination.theme:
+      return const ThemeScreen();
+    case NavigationDestination.languages:
+      return const LanguagesScreen();
+    case NavigationDestination.notifications:
+      return const NotificationsScreen();
+    case NavigationDestination.privacy:
+      return const PrivacyScreen();
   }
 }

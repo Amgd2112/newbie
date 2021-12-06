@@ -1,34 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../modules/models/theme_item.dart';
+import '../../modules/models/items/theme_item.dart';
+import 'theme.dart';
 
-class ThemeConfig {
-  static const ThemeItem dark = ThemeItem(
-    title: 'Dark Mode',
-    subtitle: 'Change the default app theme to dark.',
-    mode: ThemeMode.dark,
-  );
+abstract class ThemeConfig {
+  static Future<ThemeMode> loadTheme() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    int themeCode = preferences.getInt('theme') ?? 0;
 
-  static const ThemeItem light = ThemeItem(
-    title: 'Light Mode',
-    subtitle: 'Or, to light.',
-    mode: ThemeMode.light,
-  );
+    return _themeMap[themeCode]!;
+  }
 
-  static const ThemeItem system = ThemeItem(
-    title: 'System Mode',
-    subtitle: 'You can use the system mode instead.',
-    mode: ThemeMode.system,
-  );
+  static ThemeMode getTheme(int themeCode) => _themeMap[themeCode]!;
 
-  static ThemeItem getThemeItem(int key) {
-    switch (key) {
-      case 0:
-        return dark;
-      case 1:
-        return light;
-      default:
-        return system;
-    }
+  static Future<void> setTheme(int themeCode) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setInt('language', themeCode);
+  }
+
+  static const Map<int, ThemeMode> _themeMap = {
+    0: ThemeMode.system,
+    1: ThemeMode.light,
+    2: ThemeMode.dark,
+  };
+
+  static ThemeData get light => lightTheme;
+  static ThemeData get dark => darkTheme;
+}
+
+ThemeItem lookupThemeItem(BuildContext context, int themeKey) {
+  switch (themeKey) {
+    case 2:
+      return ThemeItem(
+        title: AppLocalizations.of(context)?.settingsThemeDarkTitle,
+        mode: ThemeMode.dark,
+      );
+
+    case 1:
+      return ThemeItem(
+        title: AppLocalizations.of(context)?.settingsThemeLightTitle,
+        mode: ThemeMode.light,
+      );
+
+    default:
+      return ThemeItem(
+        title: AppLocalizations.of(context)?.settingsThemeSystemTitle,
+        mode: ThemeMode.system,
+      );
   }
 }

@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
 import 'blocs/blocs.dart';
+import 'config/config.dart';
 import 'utils/helper/newbie_bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences _preferences = await SharedPreferences.getInstance();
+  Locale newbieLocale = await LanguageConfig.loadLocalization();
+  ThemeMode newbieTheme = await ThemeConfig.loadTheme();
 
   BlocOverrides.runZoned(
     () => runApp(Phoenix(
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<LocalizationBloc>(
+            create: (BuildContext context) {
+              return LocalizationBloc(newbieLocale);
+            },
+          ),
+          BlocProvider<ThemeBloc>(
+            create: (BuildContext context) {
+              return ThemeBloc(newbieTheme);
+            },
+          ),
           BlocProvider<NetworkBloc>(
             create: (BuildContext context) {
               return NetworkBloc()..add(ListenConnection());
@@ -22,11 +33,6 @@ void main() async {
           ),
           BlocProvider<NavigationBloc>(
             create: (BuildContext context) => NavigationBloc(),
-          ),
-          BlocProvider<ThemeBloc>(
-            create: (BuildContext context) {
-              return ThemeBloc(_preferences.getInt('theme') ?? 2);
-            },
           ),
         ],
         child: const NewbieApp(),

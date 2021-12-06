@@ -22,47 +22,33 @@ class NewbieDrawer extends StatelessWidget {
             child: null,
           ),
           ...[
-            NavigationDestination.feed,
+            NavigationDestination.home,
             NavigationDestination.statistics,
             NavigationDestination.notes,
             NavigationDestination.roadmap,
           ].map((dynamic destination) {
             return DrawerListTile(
-              navigationItem: RouteConfig.getNavigationItem(destination),
+              navigationItem: lookupNavigationItem(context, destination),
               selected: navigationItem.destination == destination,
               onTap: () {
-                NewbieRouter.replacePage(
-                    context: context, destination: destination);
+                NewbieRouter.replacePage(context, destination);
               },
             );
           }),
           const Divider(),
           DrawerListTile(
-            navigationItem: RouteConfig.getNavigationItem(
-              NavigationDestination.deleted,
-            ),
-            selected:
-                navigationItem.destination == NavigationDestination.deleted,
+            navigationItem: lookupNavigationItem(context, NavigationDestination.deleted),
+            selected: navigationItem.destination == NavigationDestination.deleted,
             onTap: () {
-              NewbieRouter.replacePage(
-                context: context,
-                destination: NavigationDestination.deleted,
-              );
+              NewbieRouter.replacePage(context, NavigationDestination.deleted);
             },
           ),
           DrawerListTile(
-            navigationItem: RouteConfig.getNavigationItem(
-              NavigationDestination.settings,
-            ),
-            selected:
-                navigationItem.destination == NavigationDestination.settings,
+            navigationItem: lookupNavigationItem(context, NavigationDestination.settings),
+            selected: navigationItem.destination == NavigationDestination.settings,
             onTap: () {
               Navigator.pop(context);
-              NewbieRouter.pushSlidePage(
-                context: context,
-                destination: NavigationDestination.settings,
-                direction: AxisDirection.left,
-              );
+              NewbieRouter.pushSlidePage(context, NavigationDestination.settings, AxisDirection.left);
             },
           ),
         ],

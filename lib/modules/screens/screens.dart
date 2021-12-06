@@ -1,6 +1,6 @@
 export 'add_problem.dart';
 export 'deleted.dart';
-export 'feed.dart';
+export 'home.dart';
 export 'internet_connection.dart';
 export 'language.dart';
 export 'notes.dart';

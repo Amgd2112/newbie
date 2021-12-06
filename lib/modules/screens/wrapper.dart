@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/routes/navigation_bloc.dart';
-import '../../config/routes/router.dart';
+import '../../config/routes/routes.dart';
 import '../modules.dart';
 
 class WrapperScreen extends StatelessWidget {
@@ -12,10 +12,11 @@ class WrapperScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
+        final NavigationItem navItem = lookupNavigationItem(context, state.destination);
         return Scaffold(
-          appBar: mapAppBar(navigationItem: state.selectedItem),
-          drawer: NewbieDrawer(navigationItem: state.selectedItem),
-          body: NewbieRouter.mapScreen(state.selectedItem.destination),
+          appBar: mapAppBar(navigationItem: navItem),
+          drawer: NewbieDrawer(navigationItem: navItem),
+          body: lookupScreen(state.destination),
           floatingActionButton: AnimatedSwitcher(
             duration: const Duration(milliseconds: 250),
             transitionBuilder: (child, animation) {
@@ -24,22 +25,10 @@ class WrapperScreen extends StatelessWidget {
                 child: child,
               );
             },
-            child: mapFloatingActionButton(state.selectedItem.destination),
+            child: lookupFloatingActionButton(state.destination),
           ),
         );
       },
     );
-  }
-
-  Widget? mapFloatingActionButton(NavigationDestination destination) {
-    if (destination == NavigationDestination.feed) {
-      return const FeedFloatingActionButton();
-    }
-
-    if (destination == NavigationDestination.notes) {
-      return const NotesFloatingActionButton();
-    }
-
-    return null;
   }
 }

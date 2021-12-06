@@ -13,7 +13,7 @@ class SlidePageRoute extends PageRouteBuilder {
   RouteTransitionsBuilder get transitionsBuilder {
     return (context, animation, secondaryAnimation, child) {
       final Tween<Offset> tween = Tween<Offset>(
-        begin: mapOffset(direction),
+        begin: offsetMap[direction],
         end: Offset.zero,
       );
       final Animation<Offset> offsetAnimation = animation.drive(tween);
@@ -23,17 +23,11 @@ class SlidePageRoute extends PageRouteBuilder {
       );
     };
   }
+  static const Map<AxisDirection, Offset> offsetMap = {
+    AxisDirection.up: Offset(0.0, 1.0),
+    AxisDirection.right: Offset(-1.0, 0.0),
+    AxisDirection.down: Offset(0.0, -1.0),
+    AxisDirection.left: Offset(1.0, 0.0),
+  };
 
-  Offset mapOffset(AxisDirection direction) {
-    switch (direction) {
-      case AxisDirection.up:
-        return const Offset(0.0, 1.0);
-      case AxisDirection.right:
-        return const Offset(-1.0, 0.0);
-      case AxisDirection.down:
-        return const Offset(0.0, -1.0);
-      case AxisDirection.left:
-        return const Offset(1.0, 0.0);
-    }
-  }
 }

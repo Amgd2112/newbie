@@ -1,5 +1,5 @@
 enum NavigationDestination {
-  feed,
+  home,
   statistics,
   notes,
   roadmap,

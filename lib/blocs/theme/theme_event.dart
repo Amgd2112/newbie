@@ -12,5 +12,8 @@ class ThemeChanged extends ThemeEvent {
   const ThemeChanged({required this.key});
 
   @override
+  String toString() => 'ThemeChanged(key: $key)';
+
+  @override
   List<Object> get props => [key];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:newbie/modules/modules.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../modules.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -8,10 +9,9 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settingsTitle)),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           Material(
             color: Theme.of(context).canvasColor,
@@ -25,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
                     bottom: 5.0,
                   ),
                   child: Text(
-                    'Settings',
+                    AppLocalizations.of(context)!.settingsTitle,
                     style: Theme.of(context).textTheme.button?.copyWith(
                           color: Theme.of(context).primaryColor,
                           fontSize: 16.0,
