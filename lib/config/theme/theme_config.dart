@@ -5,26 +5,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../modules/models/items/theme_item.dart';
 import 'theme.dart';
 
-abstract class ThemeConfig {
+class ThemeConfig {
   static Future<ThemeMode> loadTheme() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     int themeCode = preferences.getInt('theme') ?? 0;
-
-    return _themeMap[themeCode]!;
+    return getTheme(themeCode);
   }
 
-  static ThemeMode getTheme(int themeCode) => _themeMap[themeCode]!;
+  static ThemeMode getTheme(int themeCode) => ThemeMode.values.elementAt(themeCode);
 
   static Future<void> setTheme(int themeCode) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setInt('language', themeCode);
+    preferences.setInt('theme', themeCode);
   }
-
-  static const Map<int, ThemeMode> _themeMap = {
-    0: ThemeMode.system,
-    1: ThemeMode.light,
-    2: ThemeMode.dark,
-  };
 
   static ThemeData get light => lightTheme;
   static ThemeData get dark => darkTheme;

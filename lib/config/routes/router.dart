@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/routes/navigation_bloc.dart';
 import '../../modules/modules.dart';
-import '../../utils/interface/animations/animations.dart';
+import '../../utils/interface/interface.dart';
 
-abstract class NewbieRouter {
+class NewbieRouter {
   static void replacePage(BuildContext context, NavigationDestination destination) {
     Navigator.pop(context);
     context.read<NavigationBloc>().add(DestinationChanged(destination: destination));
@@ -63,6 +63,16 @@ abstract class NewbieRouter {
     );
     return val;
   }
+
+  static Future<dynamic> pushDialog(BuildContext context, NavigationDestination destination) {
+    var val = showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return lookupScreen(destination);
+      },
+    );
+    return val;
+  }
 }
 
 Widget lookupScreen(NavigationDestination destination) {
@@ -81,10 +91,12 @@ Widget lookupScreen(NavigationDestination destination) {
       return const SettingsScreen();
     case NavigationDestination.addProblem:
       return const AddProblemScreen();
+
     case NavigationDestination.theme:
-      return const ThemeScreen();
+      return const ThemeDialog();
     case NavigationDestination.languages:
-      return const LanguagesScreen();
+      return const LanguagesDialog();
+
     case NavigationDestination.notifications:
       return const NotificationsScreen();
     case NavigationDestination.privacy:

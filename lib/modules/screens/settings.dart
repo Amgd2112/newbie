@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../config/config.dart';
 import '../modules.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -32,16 +33,30 @@ class SettingsScreen extends StatelessWidget {
                         ),
                   ),
                 ),
+
                 ...[
                   NavigationDestination.notifications,
-                  NavigationDestination.theme,
-                  NavigationDestination.languages,
                   NavigationDestination.privacy,
                 ].map(
-                  (NavigationDestination name) {
-                    return NavigationListTile(destination: name);
+                  (NavigationDestination destination) {
+                    return NavigationListTile(
+                      destination: destination,
+                      onTap: () {
+                        NewbieRouter.pushSlidePage(context, destination, AxisDirection.left);
+                      },
+                    );
                   },
                 ),
+
+                ...[NavigationDestination.languages, NavigationDestination.theme]
+                    .map((NavigationDestination destination) {
+                  return NavigationListTile(
+                    destination: destination,
+                    onTap: () {
+                      NewbieRouter.pushDialog(context, destination);
+                    },
+                  );
+                }),
               ],
             ),
           ),

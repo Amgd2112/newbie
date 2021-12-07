@@ -1,2 +1,2 @@
 export 'helper/helper.dart';
-export 'interface/animations/animations.dart';
+export 'interface/interface.dart';

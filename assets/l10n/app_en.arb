@@ -15,13 +15,11 @@
   "settingsTitle": "Settings",
 
   "settingsThemeTitle": "Theme",
-  "settingsThemeDescription": "Select your default theme setting.",
-  "settingsThemeDarkTitle": "Dark Mode",
-  "settingsThemeLightTitle": "Light Mode",
-  "settingsThemeSystemTitle": "System Mode",
+  "settingsThemeDarkTitle": "Dark",
+  "settingsThemeLightTitle": "Light",
+  "settingsThemeSystemTitle": "Follow system",
 
   "settingsLanguagesTitle": "Languages",
-  "settingsLanguagesDescription": "Select your app default language.",
   "settingsLanguagesEnglishTitle": "English",
   "settingsLanguagesArabicTitle": "Arabic",
 

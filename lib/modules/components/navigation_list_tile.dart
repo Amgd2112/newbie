@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../config/routes/routes.dart';
-import '../../models/models.dart';
+import '../../config/routes/routes.dart';
+import '../models/models.dart';
 
 class NavigationListTile extends StatelessWidget {
   final NavigationDestination destination;
+  final void Function()? onTap;
 
-  const NavigationListTile({Key? key, required this.destination}) : super(key: key);
+  const NavigationListTile({Key? key, required this.destination, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,7 @@ class NavigationListTile extends StatelessWidget {
         item.title,
         style: Theme.of(context).textTheme.button,
       ),
-      onTap: () {
-        NewbieRouter.pushSlidePage(context, item.destination, AxisDirection.left);
-      },
+      onTap: onTap,
     );
   }
 }

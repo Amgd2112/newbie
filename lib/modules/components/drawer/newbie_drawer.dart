@@ -15,12 +15,7 @@ class NewbieDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-            ),
-            child: null,
-          ),
+          const DrawerHeader(child: null),
           ...[
             NavigationDestination.home,
             NavigationDestination.statistics,

@@ -4,22 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../modules/models/models.dart';
 
-abstract class LanguageConfig {
+class LanguageConfig {
   static Future<Locale> loadLocalization() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String languageCode = preferences.getString('language') ?? 'en';
-
-    for (MapEntry<Language, Locale> e in _localeMap.entries) {
-      if (languageCode == e.value.languageCode) return e.value;
-    }
-    return _localeMap[Language.en]!;
+    int languageCode = preferences.getInt('language') ?? 0;
+    return _localeMap[Language.values.elementAt(languageCode)]!;
   }
 
   static Locale getLocalization(Language language) => _localeMap[language]!;
 
   static Future<void> setLocalization(Language language) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setString('language', _localeMap[language]!.languageCode);
+    preferences.setInt('language', Language.values.indexOf(language));
   }
 
   static const Map<Language, Locale> _localeMap = {
@@ -28,15 +24,15 @@ abstract class LanguageConfig {
   };
 }
 
-LocalizationItem lookupLocalizationItem(BuildContext context, Language language) {
-  switch (language) {
-    case Language.ar:
+LocalizationItem lookupLocalizationItem(BuildContext context, int languageKey) {
+  switch (languageKey) {
+    case 1:
       return LocalizationItem(
         title: AppLocalizations.of(context)?.settingsLanguagesArabicTitle,
         language: Language.ar,
       );
 
-    case Language.en:
+    default:
       return LocalizationItem(
         title: AppLocalizations.of(context)?.settingsLanguagesEnglishTitle,
         language: Language.en,
